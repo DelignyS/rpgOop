@@ -6,8 +6,22 @@
   <title>RPG Game</title>
 </head>
 <body>
-  <button id ="startGameButton">Start a new Game</button>
-  <div id="gameStatusDiv">Game Status: </div>
+  <button id="startGameButton">Start a new Game</button>
+  <div id="characterSelection" style="display: none;">
+    <button class="characterButton" data-character="Fighter">Fighter</button>
+    <button class="characterButton" data-character="Paladin">Paladin</button>
+    <button class="characterButton" data-character="Monk">Monk</button>
+    <button class="characterButton" data-character="Berzerker">Berzerker</button>
+    <button class="characterButton" data-character="Assassin">Assassin</button>
+    <button class="characterButton" data-character="Wizard">Wizard</button>
+    <button class="characterButton" data-character="Rogue">Rogue</button>
+  </div>
+  <form id="nameForm" style="display: none;">
+    <label for="nameInput">Enter a name:</label>
+    <input type="text" id="nameInput">
+    <button type="submit">Submit</button>
+  </form>
+  <div id="gameStatus">Game Status: </div>
   <script src="game.js"></script>
 </body>
 </html>
