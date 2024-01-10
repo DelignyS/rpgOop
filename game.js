@@ -190,6 +190,10 @@ class Game {
         if (character.status === "playing") {
           console.log(`It's time for ${character.name} to play.`);
           let victim = this.characters[(i + 1) % this.characters.length];
+          while (victim.hp === 0) {
+            i = (i + 1) % this.characters.length;
+            victim = this.characters[i];
+          }
           if (character.mana >= 20) {
             character.specialAttack(victim);
             character.mana -= 20;
