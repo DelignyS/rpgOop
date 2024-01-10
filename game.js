@@ -1,43 +1,43 @@
-class Character {
-  constructor(name, hp, dmg, mana) {
-    this.name = name;
-    this.hp = hp;
-    this.dmg = dmg;
-    this.mana = mana;
-    this.status = "playing";
+class Character { // This is the parent class for all characters in the game (Fighter, Paladin, Monk, Berzerker, Assassin, Wizard, Rogue)
+  constructor(name, hp, dmg, mana) { // The constructor is called when we create a new instance of a class
+    this.name = name; // The name of the character
+    this.hp = hp; // The health points of the character
+    this.dmg = dmg; // The damage of the character
+    this.mana = mana; // The mana points of the character
+    this.status = "playing"; // The status of the character (playing, loser, winner)
   }
 
-  takeDamage(damage) {
-    this.hp -= damage;
-    if (this.hp <= 0) {
-      this.hp = 0;
-      this.status = "loser";
+  takeDamage(damage) { // This method is called when the character takes damage
+    this.hp -= damage; // We remove the damage gived by the attacker from the health points of the character
+    if (this.hp <= 0) { // If the health points of the character are below or equal to 0
+      this.hp = 0; // We set the health points of the character to 0
+      this.status = "loser"; // We set the status of the character to loser
     }
   }
 
-  dealDamage(victim) {
-    victim.takeDamage(this.dmg);
-    if (victim.hp === 0) {
-      this.mana += 20;
+  dealDamage(victim) { // This method is called when the character deals damage to another character
+    victim.takeDamage(this.dmg);  // We call the takeDamage method of the victim to deal damage to him
+    if (victim.hp === 0) { // If the health points of the victim are equal to 0
+      this.mana += 20; // We add 20 mana points to the character
     }
   }
-  describe() {
-    return `${this.name} has ${this.hp} health points, ${this.dmg} as damage and ${this.mana} mana points.`;
+  describe() { // This method is called when we want to describe the character
+    return `${this.name} has ${this.hp} health points, ${this.dmg} as damage and ${this.mana} mana points.`; // We return a string describing the character
   }
   // To be overridden by subclasses
-  specialAttack(victim) {}
+  specialAttack(victim) {} // This method is called when the character uses his special attack
 }
 
-class Fighter extends Character {
-  constructor(name = "Grace", hp = 12, dmg = 4, mana = 40) {
-    super(name, hp, dmg, mana);
+class Fighter extends Character { // This is the subclass of Character
+  constructor(name = "Grace", hp = 12, dmg = 4, mana = 40) { // The constructor is called when we create a new instance of a class
+    super(name, hp, dmg, mana); // We call the constructor of the parent class
   }
 
-  specialAttack(victim) {
+  specialAttack(victim) { // This method is called when the character uses his special attack
     if (this.mana >= 20) {
-      console.log(`${this.name} uses Dark Vision on ${victim.name}`);
-      victim.takeDamage(this.dmg + 5);
-      this.mana -= 20;
+      console.log(`${this.name} uses Dark Vision on ${victim.name}`); // We display a message to the player
+      victim.takeDamage(this.dmg + 5); // We call the takeDamage method of the victim to deal damage to him
+      this.mana -= 20; // We remove 20 mana points from the character
       this.dmgReduction = 2; // This will reduce damage taken by 2 on the next turn
     }
   }
@@ -46,21 +46,21 @@ class Fighter extends Character {
   }
 }
 
-class Paladin extends Character {
-  constructor(name = "Ulder", hp = 16, dmg = 3, mana = 160) {
-    super(name, hp, dmg, mana);
+class Paladin extends Character { // cf Fighter
+  constructor(name = "Ulder", hp = 16, dmg = 3, mana = 160) { // cf Fighter
+    super(name, hp, dmg, mana); // cf Fighter
   }
 
-  specialAttack(victim) {
-    if (this.mana >= 40) {
-      console.log(`${this.name} uses Healing Lighting on ${victim.name}`);
-      victim.takeDamage(this.dmg + 4);
-      this.hp += 5;
-      this.mana -= 40;
+  specialAttack(victim) { // cf Fighter
+    if (this.mana >= 40) {  // cf Fighter
+      console.log(`${this.name} uses Healing Lighting on ${victim.name}`);    // cf Fighter
+      victim.takeDamage(this.dmg + 4); // cf Fighter
+      this.hp += 5; // cf Fighter
+      this.mana -= 40; // cf Fighter
     }
   }
-  describe() {
-    return super.describe() + ' This is a Paladin.';
+  describe() { // cf Fighter
+    return super.describe() + ' This is a Paladin.'; // cf Fighter
   }
 }
 
@@ -199,8 +199,8 @@ class Game {
         }
       }
 
-      this.turnLeft--;
-      this.checkGameState();
+      this.turnLeft--; // We decrement the number of turn left
+      this.checkGameState(); // We check the game state
 
       // Wait for 3 seconds before the next turn
       await new Promise(resolve => setTimeout(resolve, 500));
@@ -208,9 +208,9 @@ class Game {
   }
 }
 
-document.addEventListener("DOMContentLoaded", function() {
-  document.getElementById("startGameButton").addEventListener("click", function() {
-    let game = new Game();
-    game.startGame();
+document.addEventListener("DOMContentLoaded", function() { // This function is called when the HTML document is loaded
+  document.getElementById("startGameButton").addEventListener("click", function() { // We add an event listener on the button
+    let game = new Game(); // We create a new instance of the Game class
+    game.startGame(); // We call the startGame method of the game
   });
 });
